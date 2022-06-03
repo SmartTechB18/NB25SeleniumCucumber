@@ -6,7 +6,8 @@ Scenario: User provide valid credentials
   Given User opens the application in chrome browser
   When  User clicks on sign in button
   And 	Enter valid credentials and click Sign in button
-  Then 	User is successfully logged in to my account home page 
+  Then 	User is successfully logged in to my account home page
+  And   Close browser 
  
 @regression   
 Scenario Outline: User provide invalid credentials
@@ -15,6 +16,7 @@ Scenario Outline: User provide invalid credentials
  	And 	Enter invalid userName<"userName"> and password <"password">
  	And 	Click sign in button
   Then 	Verify the user is given error
+  And   Close browser
 
   Examples: 
       | userName  			| password |

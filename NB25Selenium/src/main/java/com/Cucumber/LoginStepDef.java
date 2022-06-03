@@ -37,7 +37,7 @@ public class LoginStepDef {
 		System.out.println("Opened Application");
 	}
 
-	@When("User clicks on sign in button")
+	@When("^User clicks on sign in button$")
 	public void user_clicks_on_sign_in_button() {	
 	Highlight.getcolor(driver, lpf.getSignInBtn());
 	lpf.getSignInBtn().click();
@@ -45,7 +45,7 @@ public class LoginStepDef {
 	ScreenShot.captureScreenShot(driver, "SignInPage");
 	}
 
-	@When("Enter valid credentials and click Sign in button")
+	@When("^Enter valid credentials and click Sign in button$")
 	public void enter_valid_credentials_and_click_sign_in_button() throws IOException, InterruptedException {
 		Highlight.getcolor(driver, lpf.getEmailBox(), "red");
 		System.out.println("Checkpoint");
@@ -56,7 +56,7 @@ public class LoginStepDef {
 	lpf.getSignInBtn2().click();
 	}
 
-	@Then("User is successfully logged in to my account home page")
+	@Then("^User is successfully logged in to my account home page$")
 	public void user_is_successfully_logged_in_to_my_account_home_page() {
 		String so = lpf.getSignOut().getText();
 		if(so.equalsIgnoreCase("Sign out")) {
@@ -67,25 +67,25 @@ public class LoginStepDef {
 			System.out.println("Something wrong");
 		ScreenShot.captureScreenShot(driver, "LoginFail");
 		}		
-		driver.quit();
+		
 	}
 	
-	@When("Click sign in button")
+	@When("^Click sign in button$")
 	public void click_sign_in_button() {
 		lpf.getSignInBtn2().click();
 	}
 
-	@Then("Verify the user is given error")
+	@Then("^Verify the user is given error$")
 	public void verify_the_user_is_given_error() {
 	   String SignInError = lpf.getErrorSignIn().getText();
 	   if(SignInError.contains("1 error")) {
 		   System.out.print("User is not logged in due to invalid credentials.");
 	   }
 	   else {System.out.println("Check issue with invalid log in.");}
-	   driver.quit();
+	   
 	}
 
-	@When("Enter invalid userName<{string}> and password <{string}>")
+	@When("^Enter invalid userName<{string}> and password <{string}>$")
 	public void enter_invalid_user_name_and_password(String string, String string2) throws InterruptedException {
 		Highlight.getcolor(driver, lpf.getEmailBox(), "red");
 		System.out.println("Checkpoint");
@@ -93,5 +93,10 @@ public class LoginStepDef {
 	Highlight.getcolor(driver, lpf.getPassBox(), "yellow");
 	Thread.sleep(2000);
 	lpf.getPassBox().sendKeys(string2);
+	}
+	
+	@Then("^Close browser$")
+	public void close_browser() {
+	   driver.quit();
 	}
 }
